@@ -2,7 +2,7 @@
 
 A hands-on workshop for learning **advanced TypeScript patterns in real React applications** — payments, admin panels, user management, dashboards, and API typing.
 
-Exercises are **TODO-based**. The `main` branch contains scaffolds with TODOs. Keep your completed work on the optional [`solutions`](https://github.com/AlirezaBs/advanced-typescript-workshop/tree/solutions) branch — same paths under `src/exercises/`, no separate answer files.
+Exercises are **TODO-based**. The `master` branch contains scaffolds with TODOs. Reference implementations are available on the optional [`solutions`](https://github.com/AlirezaBs/advanced-typescript-workshop/tree/solutions) branch.
 
 ## Who this is for
 
@@ -74,17 +74,9 @@ Do not skip ahead for the best learning outcome — later modules reuse earlier 
 
 ## Solutions branch
 
-Use a second branch to save your completed exercises without overwriting the TODO scaffolds on `main`:
+Reference implementations live on the optional [`solutions`](https://github.com/AlirezaBs/advanced-typescript-workshop/tree/solutions) branch. Work through exercises on `master` first, then compare when you are ready.
 
-```bash
-git checkout solutions          # your completed src/exercises/ work
-git diff main..solutions -- src/exercises/00-foundations/   # compare vs scaffold
-git checkout main               # return to TODOs
-```
-
-See [`docs/SOLUTIONS-BRANCH.md`](docs/SOLUTIONS-BRANCH.md) for workflow details.
-
-> **Note:** There are no pre-written `*.solution.ts` files. You implement answers directly in `src/exercises/` on the `solutions` branch.
+See [`docs/SOLUTIONS-BRANCH.md`](docs/SOLUTIONS-BRANCH.md) for details.
 
 ## Project structure
 
@@ -100,7 +92,6 @@ docs/
 ├── CHEATSHEET.md           # Your growing reference
 └── SOLUTIONS-BRANCH.md     # Solutions branch documentation
 .cursor/rules/              # Cursor mentor rules (optional)
-solutions/README.md         # Explains the solutions branch workflow
 ```
 
 ## Using with Cursor (optional)
@@ -109,7 +100,7 @@ This repo includes [Cursor rules](.cursor/rules/) that encourage a mentor-style 
 
 ## Contributing
 
-Contributions welcome: exercise clarity, type-test coverage, docs, and bug fixes. Please **do not open PRs with solution code on `main`**.
+Contributions welcome: exercise clarity, type-test coverage, docs, and bug fixes. Please **do not open PRs with solution code on `master`**.
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before submitting changes.
 

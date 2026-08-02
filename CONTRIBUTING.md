@@ -10,7 +10,7 @@ Thank you for helping improve this workshop. This project is designed for **lear
 - Documentation fixes and translations
 - Accessibility or UX improvements to the learning dashboard
 
-## What we do not merge on `main`
+## What we do not merge on `master`
 
 - Reference implementations or completed TODOs
 - Solution files under `src/exercises/**`
@@ -21,7 +21,7 @@ Thank you for helping improve this workshop. This project is designed for **lear
 
 ## Before you open a PR
 
-1. Fork and branch from `main`
+1. Fork and branch from `master`
 2. Run all checks:
 
    ```bash
@@ -38,7 +38,7 @@ Thank you for helping improve this workshop. This project is designed for **lear
 Open an issue if:
 
 - Instructions are ambiguous or incorrect
-- `typecheck` fails on a clean clone of `main`
+- `typecheck` fails on a clean clone of `master`
 - A module demo does not run in the browser
 
 Do not open issues asking for solutions — use the `solutions` branch after attempting the exercise.
