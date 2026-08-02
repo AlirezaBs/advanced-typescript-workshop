@@ -12,20 +12,15 @@ export interface User {
   updatedAt: string;
 }
 
-/** TODO: Editable fields only — use StrictOmit from lib/types. */
-export type UserFormData = User;
+export type UserFormData = StrictOmit<User, "id" | "createdAt" | "updatedAt">;
 
-/** TODO: Preview card fields — use Pick. */
-export type UserPreview = User;
+export type UserPreview = Pick<User, "id" | "name" | "email" | "avatar" | "role">;
 
-/** TODO: PATCH payload — Partial of editable fields. */
-export type UserPatch = User;
+export type UserPatch = Partial<UserFormData>;
 
-/** TODO: Readonly API response — use Readonly. */
-export type UserResponse = User;
+export type UserResponse = Readonly<User>;
 
-/** TODO: Map each role to permission strings — use Record. */
-export type RolePermissions = Record<string, string[]>;
+export type RolePermissions = Record<User["role"], string[]>;
 
 export const sampleUser: User = {
   id: "u_1",

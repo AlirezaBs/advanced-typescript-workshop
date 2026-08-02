@@ -6,13 +6,15 @@ export function PolymorphicExercise() {
     <div className="exercise-panel">
       <section>
         <h2>Exercise — Polymorphic Box</h2>
-        <p className="hint">
-          Implement <code>BoxProps</code> so intrinsic props like <code>href</code> and{" "}
-          <code>type</code> flow through when <code>as</code> changes.
-        </p>
-        <Box as="button">Pay now</Box>
-        <Box as="a">API docs</Box>
-        <Box as="div">Static container</Box>
+        <div className="demo-row">
+          <Box as="button" type="button" onClick={() => undefined}>
+            Pay now
+          </Box>
+          <Box as="a" href="https://example.com/docs">
+            API docs
+          </Box>
+          <Box as="div">Static container</Box>
+        </div>
       </section>
     </div>
   );

@@ -1,3 +1,5 @@
+import { assertNever } from "../../lib/exhaustive";
+
 export type CartItem = {
   productId: string;
   name: string;
@@ -9,16 +11,41 @@ export type CartState = {
   items: CartItem[];
 };
 
-/** TODO: Discriminated union of cart actions. */
 export type CartAction =
   | { type: "ADD"; productId: string; name: string; unitPrice: number; qty: number }
   | { type: "REMOVE"; productId: string }
   | { type: "CLEAR" };
 
-/** TODO: Implement exhaustive cartReducer. */
 export function cartReducer(state: CartState, action: CartAction): CartState {
-  void action;
-  return state;
+  switch (action.type) {
+    case "ADD": {
+      const existing = state.items.find((item) => item.productId === action.productId);
+      if (existing) {
+        return {
+          items: state.items.map((item) =>
+            item.productId === action.productId ? { ...item, qty: item.qty + action.qty } : item,
+          ),
+        };
+      }
+      return {
+        items: [
+          ...state.items,
+          {
+            productId: action.productId,
+            name: action.name,
+            unitPrice: action.unitPrice,
+            qty: action.qty,
+          },
+        ],
+      };
+    }
+    case "REMOVE":
+      return { items: state.items.filter((item) => item.productId !== action.productId) };
+    case "CLEAR":
+      return { items: [] };
+    default:
+      return assertNever(action);
+  }
 }
 
 export const PERMISSIONS = {

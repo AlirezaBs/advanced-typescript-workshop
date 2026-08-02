@@ -1,27 +1,43 @@
-import { useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-/** TODO: Return readonly tuple [value, toggle, setValue]. */
-export function useToggle(_initial = false) {
-  // Stub — replace with useState + readonly tuple return
-  void _initial;
-  return [false, () => undefined, (_v: boolean) => undefined] as const;
+export function useToggle(initial = false) {
+  const [value, setValue] = useState(initial);
+  const toggle = () => setValue((current) => !current);
+  return [value, toggle, setValue] as const;
 }
 
-/** TODO: Generic debounced value hook. */
-export function useDebouncedValue<T>(value: T, _delayMs: number): T {
-  void _delayMs;
-  return value;
+export function useDebouncedValue<T>(value: T, delayMs: number): T {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setDebouncedValue(value), delayMs);
+    return () => window.clearTimeout(timer);
+  }, [value, delayMs]);
+
+  return debouncedValue;
 }
 
-/** TODO: Return previous render value. */
-export function usePrevious<T>(_value: T): T | undefined {
-  void _value;
-  return undefined;
+export function usePrevious<T>(value: T): T | undefined {
+  const ref = useRef<T | undefined>(undefined);
+  // usePrevious intentionally returns the prior render value from a ref.
+  // eslint-disable-next-line react-hooks/refs -- standard usePrevious pattern
+  const previous = ref.current;
+
+  useEffect(() => {
+    ref.current = value;
+  }, [value]);
+
+  return previous;
 }
 
-/** TODO: Stable callback ref pattern. */
-export function useEventCallback<T extends (...args: never[]) => unknown>(_fn: T): T {
-  return _fn;
+export function useEventCallback<T extends (...args: never[]) => unknown>(fn: T): T {
+  const ref = useRef(fn);
+
+  useEffect(() => {
+    ref.current = fn;
+  });
+
+  return useCallback((...args: Parameters<T>) => ref.current(...args), []) as T;
 }
 
 export function useFocusRef() {

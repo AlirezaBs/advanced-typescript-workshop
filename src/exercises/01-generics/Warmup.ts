@@ -1,23 +1,13 @@
-/** TODO: Implement identity — returns the same value it receives, fully typed. */
-export function identity<T>(_value: T): T {
-  // Stub — replace with implementation
-  void _value;
-  return undefined as T;
+export function identity<T>(value: T): T {
+  return value;
 }
 
-/** TODO: Return the first item or undefined when the array is empty. */
-export function first<T>(_items: readonly T[]): T | undefined {
-  // Stub — replace with implementation
-  void _items;
-  return undefined;
+export function first<T>(items: readonly T[]): T | undefined {
+  return items[0];
 }
 
-/** TODO: Constrain K to keyof T and return obj[key] with correct return type. */
-export function getProperty<T, K extends keyof T>(_obj: T, _key: K): T[K] {
-  // Stub — replace with implementation
-  void _obj;
-  void _key;
-  return undefined as T[K];
+export function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
 }
 
 export type Transaction = {

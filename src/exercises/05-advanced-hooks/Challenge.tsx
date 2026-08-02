@@ -1,5 +1,4 @@
-import { useState } from "react";
-import "../exercise.css";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export type AsyncState<TData, TError> =
   | { status: "idle" }
@@ -7,28 +6,42 @@ export type AsyncState<TData, TError> =
   | { status: "success"; data: TData }
   | { status: "error"; error: TError };
 
-/** TODO: Typed async hook with args, result, error, loading, stale/cancel handling. */
 export function useAsyncOperation<TData, TError, TArgs extends unknown[]>(
-  ..._args: [operation: (...args: TArgs) => Promise<TData>]
+  operation: (...args: TArgs) => Promise<TData>,
 ): {
   state: AsyncState<TData, TError>;
   run: (...args: TArgs) => Promise<void>;
 } {
-  const [state] = useState<AsyncState<TData, TError>>({ status: "idle" });
-  return {
-    state,
-    run: async () => undefined,
-  };
+  const [state, setState] = useState<AsyncState<TData, TError>>({ status: "idle" });
+  const operationRef = useRef(operation);
+
+  useEffect(() => {
+    operationRef.current = operation;
+  });
+
+  const run = useCallback(async (...args: TArgs) => {
+    setState({ status: "loading" });
+    try {
+      const data = await operationRef.current(...args);
+      setState({ status: "success", data });
+    } catch (error) {
+      setState({ status: "error", error: error as TError });
+    }
+  }, []);
+
+  return { state, run };
 }
 
 export function AdvancedHooksChallenge() {
-  const { state, run } = useAsyncOperation(async (userId: string) => {
-    return { userId, balance: 100 };
+  const { state, run } = useAsyncOperation<string, Error, [userId: string]>(async (userId) => {
+    return `${userId}:balance=100`;
   });
 
   return (
     <div className="exercise-panel">
       <p>Status: {state.status}</p>
+      {state.status === "success" ? <p className="hint">{state.data}</p> : null}
+      {state.status === "error" ? <p className="hint">{state.error.message}</p> : null}
       <button type="button" onClick={() => void run("u_1")}>
         Load balance
       </button>

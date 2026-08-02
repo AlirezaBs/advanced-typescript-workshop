@@ -1,9 +1,4 @@
-/**
- * Module 00 — Warmup (pure TypeScript)
- *
- * Complete the TODOs below. Run `npm run typecheck` after each change.
- * Read README.md for acceptance criteria.
- */
+import { assertNever } from "../../lib/exhaustive";
 
 export interface User {
   id: string;
@@ -17,39 +12,39 @@ export const PAYMENT_CHANNELS = {
   wallet: "wallet",
 } as const;
 
-/** TODO: Derive this type from PAYMENT_CHANNELS — do not hardcode a string union. */
-export type PaymentChannel = string;
+export type PaymentChannel = (typeof PAYMENT_CHANNELS)[keyof typeof PAYMENT_CHANNELS];
 
-/**
- * TODO: Safely parse an unknown API value into a User.
- *
- * Requirements:
- * - Accept only plain objects with string id, name, and email
- * - Return null when the shape is invalid (do not throw)
- * - Do not use `any` or unsafe `as User`
- */
+function isUser(value: unknown): value is User {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
+
+  const record = value as Record<string, unknown>;
+
+  return (
+    typeof record.id === "string" &&
+    typeof record.name === "string" &&
+    typeof record.email === "string"
+  );
+}
+
 export function parseUnknownUser(value: unknown): User | null {
-  // Stub — replace with proper narrowing
-  void value;
-  return null;
+  return isUser(value) ? value : null;
 }
 
-/**
- * TODO: Return a human-readable label for each payment channel.
- *
- * Requirements:
- * - Narrow the PaymentChannel union exhaustively
- * - Do not use `as` assertions
- * - Consider using assertNever from src/lib/exhaustive.ts for the default branch
- */
 export function getChannelLabel(channel: PaymentChannel): string {
-  // Stub — replace with exhaustive narrowing
-  return channel;
+  switch (channel) {
+    case "card":
+      return "Card";
+    case "bank":
+      return "Bank";
+    case "wallet":
+      return "Wallet";
+    default:
+      return assertNever(channel);
+  }
 }
 
-/**
- * Sample unknown payloads for manual testing in the browser console or a REPL.
- */
 export const unknownUserSamples: unknown[] = [
   { id: "u_1", name: "Ada Lovelace", email: "ada@example.com" },
   { id: 42, name: "Invalid id type" },

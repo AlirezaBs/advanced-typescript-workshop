@@ -1,3 +1,4 @@
+import { assertNever } from "../../lib/exhaustive";
 import "../exercise.css";
 
 export const PAYMENT_STATUS = {
@@ -7,8 +8,7 @@ export const PAYMENT_STATUS = {
   expired: "expired",
 } as const;
 
-/** TODO: Derive this type from PAYMENT_STATUS — do not hardcode the union manually. */
-export type PaymentStatus = string;
+export type PaymentStatus = (typeof PAYMENT_STATUS)[keyof typeof PAYMENT_STATUS];
 
 export type PaymentRecord = {
   id: string;
@@ -24,22 +24,22 @@ const samplePayments: PaymentRecord[] = [
   { id: "pay_004", amount: 8.0, currency: "USD", status: PAYMENT_STATUS.expired },
 ];
 
-/**
- * TODO: Render a user-facing label and badge class for each payment status.
- *
- * Requirements:
- * - Switch on status exhaustively
- * - Use assertNever in the default branch once PaymentStatus is a proper union
- * - Return { label: string; badgeClass: string }
- * - Do not use `any` or unsafe assertions
- */
 export function getPaymentStatusDisplay(status: PaymentStatus): {
   label: string;
   badgeClass: string;
 } {
-  // Stub — replace with exhaustive narrowing
-  void status;
-  return { label: "Unknown", badgeClass: "status-badge" };
+  switch (status) {
+    case "pending":
+      return { label: "Pending", badgeClass: "status-badge--pending" };
+    case "paid":
+      return { label: "Paid", badgeClass: "status-badge--paid" };
+    case "failed":
+      return { label: "Failed", badgeClass: "status-badge--failed" };
+    case "expired":
+      return { label: "Expired", badgeClass: "status-badge--expired" };
+    default:
+      return assertNever(status);
+  }
 }
 
 function PaymentStatusBadge({ status }: { status: PaymentStatus }) {

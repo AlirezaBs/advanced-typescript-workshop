@@ -1,15 +1,23 @@
 import "../exercise.css";
 
-/** TODO: Define ListProps<T> with items: T[] and renderItem: (item: T) => React.ReactNode */
 export type ListProps<T> = {
   items: T[];
   renderItem: (item: T) => React.ReactNode;
   emptyMessage?: string;
 };
 
-/** TODO: Implement generic List<T> — infer T from items prop without explicit type args. */
-export function List<T>(_props: ListProps<T>) {
-  return <p className="placeholder">Implement List&lt;T&gt;</p>;
+export function List<T>({ items, renderItem, emptyMessage = "No items" }: ListProps<T>) {
+  if (items.length === 0) {
+    return <p className="hint">{emptyMessage}</p>;
+  }
+
+  return (
+    <div className="demo-row">
+      {items.map((item, index) => (
+        <div key={index}>{renderItem(item)}</div>
+      ))}
+    </div>
+  );
 }
 
 type User = { id: string; name: string; role: "admin" | "support" };

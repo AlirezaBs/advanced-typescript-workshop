@@ -1,18 +1,27 @@
 import type { RolePermissions } from "./Warmup";
 import "../exercise.css";
 
-/** TODO: Build RolePermissions and render each role with its permissions. */
-export function UtilityTypesChallenge() {
-  const permissions: RolePermissions = {
-    admin: [],
-    support: [],
-    finance: [],
-  };
-  void permissions;
+const rolePermissions: RolePermissions = {
+  admin: ["users:read", "users:edit", "payments:refund", "reports:view"],
+  support: ["users:read", "payments:refund"],
+  finance: ["reports:view", "payments:refund"],
+};
 
+export function UtilityTypesChallenge() {
   return (
     <div className="exercise-panel">
-      <p className="placeholder">Implement role-to-permissions map from User model</p>
+      {Object.entries(rolePermissions).map(([role, permissions]) => (
+        <section key={role}>
+          <h3>{role}</h3>
+          <div className="demo-row">
+            {permissions.map((permission) => (
+              <span key={permission} className="status-badge status-badge--paid">
+                {permission}
+              </span>
+            ))}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }

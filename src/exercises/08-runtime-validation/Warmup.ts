@@ -1,28 +1,25 @@
 import { z } from "zod";
 
-/** TODO: Define login schema and infer LoginForm type with z.infer. */
 export const loginSchema = z.object({
-  // Stub — add email and password fields with validation
+  email: z.string().email(),
+  password: z.string().min(8),
 });
 
-export type LoginForm = {
-  email: string;
-  password: string;
-};
-
-/** TODO: Parse unknown API JSON safely — return { success, data } | { success: false, error }. */
-export function parseTransactionList(_input: unknown) {
-  void _input;
-  return { success: false as const, error: "Not implemented" };
-}
+export type LoginForm = z.infer<typeof loginSchema>;
 
 export const transactionSchema = z.object({
-  // Stub — add id, amount, currency, status fields
+  id: z.string(),
+  amount: z.number(),
+  currency: z.string(),
+  status: z.enum(["pending", "paid", "failed"]),
 });
 
-export type Transaction = {
-  id: string;
-  amount: number;
-  currency: string;
-  status: string;
-};
+export type Transaction = z.infer<typeof transactionSchema>;
+
+export function parseTransactionList(input: unknown) {
+  const result = z.array(transactionSchema).safeParse(input);
+  if (result.success) {
+    return { success: true as const, data: result.data };
+  }
+  return { success: false as const, error: result.error.message };
+}

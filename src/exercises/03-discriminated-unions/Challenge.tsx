@@ -1,6 +1,6 @@
+import { assertNever } from "../../lib/exhaustive";
 import "../exercise.css";
 
-/** TODO: Model payment lifecycle — each state exposes only valid fields. */
 export type PaymentProcess =
   | { status: "created"; paymentId: string }
   | { status: "awaitingPayment"; paymentId: string; checkoutUrl: string }
@@ -9,9 +9,23 @@ export type PaymentProcess =
   | { status: "failed"; paymentId: string; reason: string }
   | { status: "expired"; paymentId: string; expiredAt: string };
 
-/** TODO: Render admin status label exhaustively; prevent impossible field access. */
-export function getPaymentProcessLabel(_process: PaymentProcess): string {
-  return "TODO";
+export function getPaymentProcessLabel(process: PaymentProcess): string {
+  switch (process.status) {
+    case "created":
+      return `Payment ${process.paymentId} created`;
+    case "awaitingPayment":
+      return `Awaiting payment at ${process.checkoutUrl}`;
+    case "confirming":
+      return `Confirming ${process.paymentId}`;
+    case "paid":
+      return `Paid ${process.transactionId} at ${process.paidAt}`;
+    case "failed":
+      return `Failed: ${process.reason}`;
+    case "expired":
+      return `Expired at ${process.expiredAt}`;
+    default:
+      return assertNever(process);
+  }
 }
 
 const samples: PaymentProcess[] = [
@@ -22,6 +36,7 @@ const samples: PaymentProcess[] = [
     transactionId: "txn_9",
     paidAt: "2026-01-01T12:00:00Z",
   },
+  { status: "failed", paymentId: "pay_3", reason: "Card declined" },
 ];
 
 export function DiscriminatedUnionsChallenge() {

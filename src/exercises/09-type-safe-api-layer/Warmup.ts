@@ -5,7 +5,6 @@ export type ApiError = {
   message: string;
 };
 
-/** TODO: Typed endpoint definition connecting params, query, body, response, error. */
 export type EndpointDefinition<
   TParams extends Record<string, string> = Record<string, never>,
   TQuery extends Record<string, string> = Record<string, never>,
@@ -43,14 +42,25 @@ export type UserListEndpoint = EndpointDefinition<
   Paginated<User>
 >;
 
-/** TODO: Implement typed get/post helpers that do not fake runtime safety. */
-export function createApiClient(_baseUrl: string) {
+export function createApiClient(baseUrl: string) {
   return {
-    get: async <T>(_path: string): Promise<T> => {
-      throw new Error("Not implemented");
+    get: async <TResponse>(path: string): Promise<TResponse> => {
+      const response = await fetch(`${baseUrl}${path}`);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      return (await response.json()) as TResponse;
     },
-    post: async <TBody, TResponse>(_path: string, _body: TBody): Promise<TResponse> => {
-      throw new Error("Not implemented");
+    post: async <TBody, TResponse>(path: string, body: TBody): Promise<TResponse> => {
+      const response = await fetch(`${baseUrl}${path}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      return (await response.json()) as TResponse;
     },
   };
 }
