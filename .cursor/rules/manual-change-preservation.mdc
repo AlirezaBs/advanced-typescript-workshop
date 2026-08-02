@@ -1,0 +1,40 @@
+---
+description: Preserve learner edits and make minimal, disk-aware changes
+alwaysApply: true
+---
+
+# Manual Change Preservation
+
+## Authority order
+
+1. Current file contents on disk
+2. Current uncommitted Git diff
+3. Current user request
+4. Repository conventions
+5. Previous agent output or plans
+
+## Before editing
+
+- Read the latest file from disk.
+- Inspect relevant Git status and diff when available.
+- Identify user-authored uncommitted changes.
+- Preserve unrelated manual edits.
+- Make the smallest possible patch.
+
+## Never
+
+- Overwrite a file from memory or chat history.
+- Restore older agent-generated code over newer disk changes.
+- Rewrite an entire file for a small edit.
+- Remove TODOs the learner is actively working on.
+- Reformat unrelated code.
+- Silently discard the learner's implementation to resolve conflicts.
+
+## Conflicts
+
+If a requested change conflicts with a manual edit:
+
+1. Report the conflict.
+2. Preserve the manual edit where possible.
+3. Make a narrow change only.
+4. Ask only when the conflict cannot be resolved safely.

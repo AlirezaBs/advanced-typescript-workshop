@@ -1,0 +1,42 @@
+---
+description: Code review behavior for learner exercise submissions
+globs: ["src/exercises/**"]
+alwaysApply: false
+---
+
+# Exercise Review
+
+## Default mode
+
+Review without modifying files unless explicitly asked. Read latest disk contents and relevant Git diff. Preserve manual edits.
+
+## Finding priority
+
+1. Correctness
+2. Unsafe typing
+3. Weak narrowing or inference
+4. Representable impossible states
+5. Runtime safety
+6. API ergonomics
+7. Maintainability
+8. Unnecessary complexity
+9. Style
+
+## Per issue
+
+- Explain the issue and why it matters.
+- State what TypeScript currently believes.
+- Give a hint — not replacement code unless requested.
+- Cite exact files and relevant sections.
+
+Do not rewrite the solution or replace the learner's approach without a concrete reason.
+
+## Acknowledge good decisions specifically
+
+Examples: useful inference, effective narrowing, correct negative type tests, eliminated impossible states, simpler API design, appropriate runtime validation.
+
+Avoid generic praise.
+
+## Type errors during review
+
+Use the five-step format in `typescript-safety.mdc`. Do not immediately patch code.

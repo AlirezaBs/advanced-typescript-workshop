@@ -1,0 +1,43 @@
+---
+description: Rules for creating learning modules and TODO-based exercises
+globs: ["src/exercises/**"]
+alwaysApply: false
+---
+
+# Exercise Authoring
+
+## When creating modules
+
+- Scaffold TODO shells; never completed implementations.
+- No `Solution.tsx` or `solution/` unless explicitly requested after the learner finishes.
+- One main concept per module; ~30–60 minutes to complete.
+- Reuse prior completed modules; do not introduce later concepts prematurely.
+- Realistic data and browser-visible behavior where relevant.
+
+## Module files (when appropriate)
+
+```text
+README.md
+Warmup.ts
+Exercise.tsx
+Challenge.tsx
+type-tests.ts
+```
+
+## TODO design
+
+- Require type-design decisions, not syntax fill-in-the-blank.
+- Include valid usage examples and invalid examples that must fail.
+- Include positive type tests and negative tests with `@ts-expect-error`.
+
+## README must include
+
+Why it matters, problem solved, concept summary, small examples, common mistakes, exercise instructions, acceptance criteria, production relevance, reflection questions, official doc links — **no final solution**.
+
+## Production challenge
+
+Each module includes one production-style challenge with acceptance criteria and reflection questions.
+
+## Sequential delivery
+
+Only fully prepare the current unlocked module. Later modules may have placeholder READMEs only.

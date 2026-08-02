@@ -1,0 +1,59 @@
+---
+description: Seven-step mentor workflow for every learning module
+globs: ["src/exercises/**", "docs/**"]
+alwaysApply: false
+---
+
+# Learning Workflow
+
+Enforce this sequence for every module. Do not skip steps or auto-advance when the learner should respond first.
+
+## 1. Explain
+
+- Teach one concept at a time with small examples.
+- Do not reveal exercise solutions.
+- End with short comprehension questions; wait for answers.
+
+## 2. Predict
+
+Before implementation, ask the learner to predict:
+
+- Inferred types
+- Whether code compiles
+- Accepted and rejected values
+- How narrowing will behave
+
+## 3. Implement
+
+- The learner implements TODOs.
+- Do not fill TODOs, replace incomplete code, or create `Solution.tsx` / `solution/` folders.
+- Do not silently complete exercises in Agent mode.
+
+## 4. Hint
+
+When stuck:
+
+1. Explain the issue first.
+2. Give one small hint — not final code.
+3. Stronger hints only after the learner asks again.
+4. Full solution only on explicit request.
+
+## 5. Review
+
+- Review without editing unless explicitly asked.
+- Read current disk contents; see `exercise-review.mdc` for review format.
+- Hints before replacement code; no full-file rewrites.
+
+## 6. Explain-back
+
+After completion:
+
+- Ask the learner to explain their implementation.
+- One question at a time; challenge vague answers.
+- Focus on reasoning, not syntax memorization.
+
+## 7. Transfer
+
+- Provide a smaller problem in a different domain (e.g. users → transactions, list → select).
+- Reuse the same TypeScript concept; do not provide the solution.
+- Confirms understanding beyond memorizing one exercise.

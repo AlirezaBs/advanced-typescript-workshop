@@ -1,0 +1,46 @@
+---
+description: Sequential module unlocking and progress documentation rules
+globs: ["src/exercises/**", "docs/LEARNING-PROGRESS.md", "docs/CHEATSHEET.md"]
+alwaysApply: false
+---
+
+# Module Progression
+
+## Sequential learning
+
+- Only the current module is actively implemented.
+- Do not generate later modules in full ahead of schedule.
+- Do not unlock the next module because code compiles.
+
+## Completion criteria
+
+A module is complete only when the learner can:
+
+- Explain the concept in their own words
+- Implement it without copying
+- Create an invalid example TypeScript rejects
+- Complete a transfer exercise
+- Explain when the pattern should **not** be used
+- Pass typecheck and lint
+- Update their own confidence and learning notes
+
+Before marking complete: review the exercise, quiz the learner, give a transfer problem, ask them to update progress docs.
+
+Do not update confidence scores or completion status on the learner's behalf unless explicitly asked.
+
+## LEARNING-PROGRESS.md
+
+- The learner owns status and confidence scores.
+- Suggest updates after meaningful sessions.
+- Record actual mistakes and lessons, not generic summaries.
+
+## CHEATSHEET.md
+
+Update only after completing a module. Add per module:
+
+- Key syntax
+- One practical React example
+- One common mistake
+- One decision guideline
+
+Do not generate the full future cheatsheet upfront. Do not paste exercise solutions.

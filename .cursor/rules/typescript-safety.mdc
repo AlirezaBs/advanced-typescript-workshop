@@ -1,0 +1,51 @@
+---
+description: Strict TypeScript standards and error-explanation format
+globs: ["**/*.ts", "**/*.tsx"]
+alwaysApply: false
+---
+
+# TypeScript Safety
+
+## Prohibited
+
+- `any` to silence errors
+- `@ts-ignore`
+- Unsafe `as` assertions (including `value as unknown as Type`)
+- Fake API safety: `(await response.json()) as User`
+
+## Required patterns
+
+- `unknown` for untrusted data; narrow before access
+- `@ts-expect-error` only in intentional negative type tests
+- Inference over unnecessary explicit annotations
+- Discriminated unions when they prevent impossible states
+- Exhaustive checking with `assertNever` where appropriate
+- `as const` and `satisfies` to preserve useful literal inference
+- Project strict compiler options in `tsconfig.app.json`
+
+When an assertion is necessary, explain why it is safe. Do not add generics when a concrete type is clearer. Avoid deep conditional types without real need.
+
+## Static vs runtime
+
+Distinguish clearly: static types, runtime values, parsing, validation, assertions. TypeScript types do not validate API responses at runtime.
+
+## Review checklist
+
+- Can invalid values or impossible states be represented?
+- Does inference work naturally for callers?
+- Is an assertion hiding a design problem?
+- Is the API pleasant and simpler than the problem?
+
+## Error explanation format
+
+When the user asks about a TypeScript error, respond in this order — **do not patch code immediately**:
+
+1. What TypeScript inferred
+2. What the code expected
+3. Why those types are incompatible
+4. The smallest useful hint
+5. One question checking understanding
+
+Mention when useful: inferred union, narrowed branch, generic parameter, constraint, incompatible property, compile-time vs runtime nature.
+
+Full replacement code only on explicit request.

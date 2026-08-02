@@ -1,0 +1,89 @@
+.exercise-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.exercise-panel h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.exercise-panel section {
+  border: 1px solid #dde1ea;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  background: #fff;
+}
+
+.exercise-panel section h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+}
+
+.exercise-panel .hint {
+  margin: 0;
+  color: #5c6370;
+  font-size: 0.9rem;
+}
+
+.exercise-panel .demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-badge--pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-badge--paid {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-badge--failed {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status-badge--expired {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.error-card {
+  border-left: 4px solid #dc3545;
+  padding: 0.75rem 1rem;
+  background: #fff5f5;
+  border-radius: 4px;
+}
+
+.error-card h4 {
+  margin: 0 0 0.25rem;
+  font-size: 0.95rem;
+}
+
+.error-card p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.placeholder {
+  padding: 1rem;
+  border: 2px dashed #c5cad3;
+  border-radius: 8px;
+  color: #5c6370;
+  background: #fafbfc;
+}
