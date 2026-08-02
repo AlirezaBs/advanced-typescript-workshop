@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ModuleReadme } from "./components/ModuleReadme";
 import { modules, type ModuleDefinition } from "./modules";
 import "./App.css";
 
@@ -39,6 +40,7 @@ function ModulePanel({ module }: { module: ModuleDefinition }) {
 
 export default function App() {
   const [activeModuleId, setActiveModuleId] = useState("00");
+  const [readmeOpen, setReadmeOpen] = useState(true);
   const activeModule = modules.find((module) => module.id === activeModuleId) ?? modules[0]!;
 
   return (
@@ -73,9 +75,31 @@ export default function App() {
         </nav>
       </aside>
 
-      <main className="main">
-        <ModulePanel module={activeModule} />
-      </main>
+      <div className="workspace">
+        <main className="main">
+          <div className="main-toolbar">
+            <button
+              type="button"
+              className="readme-toggle"
+              onClick={() => setReadmeOpen((open) => !open)}
+              aria-expanded={readmeOpen}
+              aria-controls="module-readme-panel"
+            >
+              {readmeOpen ? "Hide lesson guide" : "Show lesson guide"}
+            </button>
+          </div>
+
+          <ModulePanel module={activeModule} />
+        </main>
+
+        <aside
+          id="module-readme-panel"
+          className={`readme-panel${readmeOpen ? " readme-panel--open" : ""}`}
+          aria-hidden={!readmeOpen}
+        >
+          <ModuleReadme slug={activeModule.slug} moduleId={activeModule.id} />
+        </aside>
+      </div>
     </div>
   );
 }

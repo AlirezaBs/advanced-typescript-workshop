@@ -79,8 +79,40 @@
   color: #82e0aa;
 }
 
+.workspace {
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 420px);
+  min-height: 100vh;
+  min-width: 0;
+}
+
+.workspace:has(.readme-panel:not(.readme-panel--open)) {
+  grid-template-columns: 1fr;
+}
+
 .main {
   padding: 1.5rem 2rem;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+.main-toolbar {
+  display: none;
+  margin-bottom: 1rem;
+}
+
+.readme-toggle {
+  padding: 0.45rem 0.85rem;
+  border: 1px solid #c7cdd8;
+  border-radius: 6px;
+  background: #fff;
+  color: #374151;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.readme-toggle:hover {
+  background: #f3f4f6;
 }
 
 .module-panel {
@@ -157,6 +189,17 @@
   margin: 0 0 1rem;
 }
 
+.readme-panel {
+  border-left: 1px solid #dde1ea;
+  background: #fafbfc;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.readme-panel:not(.readme-panel--open) {
+  display: none;
+}
+
 .locked-panel {
   max-width: 640px;
   padding: 1.5rem;
@@ -174,6 +217,23 @@
   color: #5c6370;
 }
 
+@media (max-width: 1200px) {
+  .workspace {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .main-toolbar {
+    display: block;
+  }
+
+  .readme-panel--open {
+    border-left: none;
+    border-top: 1px solid #dde1ea;
+    max-height: min(55vh, 640px);
+  }
+}
+
 @media (max-width: 768px) {
   .app {
     grid-template-columns: 1fr;
@@ -182,5 +242,9 @@
   .sidebar {
     border-right: none;
     border-bottom: 1px solid #2d2d44;
+  }
+
+  .main {
+    padding: 1rem 1.25rem;
   }
 }
